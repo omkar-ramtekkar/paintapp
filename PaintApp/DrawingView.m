@@ -3,7 +3,7 @@
 //  CustomViewDrawing
 //
 //  Created by omkar_ramtekkar on 13-01-18.
-//  Copyright 2013 __MyCompanyName__. All rights reserved.
+//  Copyright 2013 Om's MacBook Pro. All rights reserved.
 //
 
 #import "DrawingView.h"
