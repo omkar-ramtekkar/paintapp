@@ -1,0 +1,293 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8F63C59816ABD3100027D66F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F63C59716ABD3100027D66F /* Cocoa.framework */; };
+		8F63C5A216ABD3100027D66F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8F63C5A016ABD3100027D66F /* InfoPlist.strings */; };
+		8F63C5A416ABD3100027D66F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F63C5A316ABD3100027D66F /* main.m */; };
+		8F63C5A816ABD3110027D66F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 8F63C5A616ABD3100027D66F /* Credits.rtf */; };
+		8F63C5AB16ABD3110027D66F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F63C5AA16ABD3110027D66F /* AppDelegate.m */; };
+		8F63C5AE16ABD3110027D66F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F63C5AC16ABD3110027D66F /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8F63C59316ABD3100027D66F /* PaintApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaintApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F63C59716ABD3100027D66F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		8F63C59A16ABD3100027D66F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		8F63C59B16ABD3100027D66F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		8F63C59C16ABD3100027D66F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8F63C59F16ABD3100027D66F /* PaintApp-Info.plist */ = {isa = PBXFileReference; path = "PaintApp-Info.plist"; sourceTree = "<group>"; };
+		8F63C5A116ABD3100027D66F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8F63C5A316ABD3100027D66F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8F63C5A516ABD3100027D66F /* PaintApp-Prefix.pch */ = {isa = PBXFileReference; path = "PaintApp-Prefix.pch"; sourceTree = "<group>"; };
+		8F63C5A716ABD3100027D66F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		8F63C5A916ABD3110027D66F /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		8F63C5AA16ABD3110027D66F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8F63C5AD16ABD3110027D66F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8F63C59016ABD3100027D66F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F63C59816ABD3100027D66F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8F63C58816ABD3100027D66F = {
+			isa = PBXGroup;
+			children = (
+				8F63C59D16ABD3100027D66F /* PaintApp */,
+				8F63C59616ABD3100027D66F /* Frameworks */,
+				8F63C59416ABD3100027D66F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8F63C59416ABD3100027D66F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8F63C59316ABD3100027D66F /* PaintApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8F63C59616ABD3100027D66F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8F63C59716ABD3100027D66F /* Cocoa.framework */,
+				8F63C59916ABD3100027D66F /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8F63C59916ABD3100027D66F /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8F63C59A16ABD3100027D66F /* AppKit.framework */,
+				8F63C59B16ABD3100027D66F /* CoreData.framework */,
+				8F63C59C16ABD3100027D66F /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		8F63C59D16ABD3100027D66F /* PaintApp */ = {
+			isa = PBXGroup;
+			children = (
+				8F63C5A916ABD3110027D66F /* AppDelegate.h */,
+				8F63C5AA16ABD3110027D66F /* AppDelegate.m */,
+				8F63C5AC16ABD3110027D66F /* MainMenu.xib */,
+				8F63C59E16ABD3100027D66F /* Supporting Files */,
+			);
+			path = PaintApp;
+			sourceTree = "<group>";
+		};
+		8F63C59E16ABD3100027D66F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8F63C59F16ABD3100027D66F /* PaintApp-Info.plist */,
+				8F63C5A016ABD3100027D66F /* InfoPlist.strings */,
+				8F63C5A316ABD3100027D66F /* main.m */,
+				8F63C5A516ABD3100027D66F /* PaintApp-Prefix.pch */,
+				8F63C5A616ABD3100027D66F /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8F63C59216ABD3100027D66F /* PaintApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F63C5B116ABD3110027D66F /* Build configuration list for PBXNativeTarget "PaintApp" */;
+			buildPhases = (
+				8F63C58F16ABD3100027D66F /* Sources */,
+				8F63C59016ABD3100027D66F /* Frameworks */,
+				8F63C59116ABD3100027D66F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PaintApp;
+			productName = PaintApp;
+			productReference = 8F63C59316ABD3100027D66F /* PaintApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8F63C58A16ABD3100027D66F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 8F63C58D16ABD3100027D66F /* Build configuration list for PBXProject "PaintApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8F63C58816ABD3100027D66F;
+			productRefGroup = 8F63C59416ABD3100027D66F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8F63C59216ABD3100027D66F /* PaintApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8F63C59116ABD3100027D66F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F63C5A216ABD3100027D66F /* InfoPlist.strings in Resources */,
+				8F63C5A816ABD3110027D66F /* Credits.rtf in Resources */,
+				8F63C5AE16ABD3110027D66F /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8F63C58F16ABD3100027D66F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F63C5A416ABD3100027D66F /* main.m in Sources */,
+				8F63C5AB16ABD3110027D66F /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8F63C5A016ABD3100027D66F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F63C5A116ABD3100027D66F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		8F63C5A616ABD3100027D66F /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F63C5A716ABD3100027D66F /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		8F63C5AC16ABD3110027D66F /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F63C5AD16ABD3110027D66F /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8F63C5AF16ABD3110027D66F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8F63C5B016ABD3110027D66F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		8F63C5B216ABD3110027D66F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PaintApp/PaintApp-Prefix.pch";
+				INFOPLIST_FILE = "PaintApp/PaintApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8F63C5B316ABD3110027D66F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PaintApp/PaintApp-Prefix.pch";
+				INFOPLIST_FILE = "PaintApp/PaintApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8F63C58D16ABD3100027D66F /* Build configuration list for PBXProject "PaintApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F63C5AF16ABD3110027D66F /* Debug */,
+				8F63C5B016ABD3110027D66F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F63C5B116ABD3110027D66F /* Build configuration list for PBXNativeTarget "PaintApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F63C5B216ABD3110027D66F /* Debug */,
+				8F63C5B316ABD3110027D66F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8F63C58A16ABD3100027D66F /* Project object */;
+}
