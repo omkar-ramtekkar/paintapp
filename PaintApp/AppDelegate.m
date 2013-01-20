@@ -20,6 +20,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+    [self.window setFrame:[[NSScreen mainScreen] visibleFrame] display:YES animate:YES];
 }
 
 @end
