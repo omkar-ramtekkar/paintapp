@@ -12,6 +12,7 @@
 #define CONVERT_POINT_TO_VIEW(point) [self convertPoint:point fromView:nil]
 
 const float FPS = 1.0f/50.0;
+BOOL bDrawGradient = FALSE;
 
 @implementation DrawingView
 
@@ -61,11 +62,17 @@ const float FPS = 1.0f/50.0;
 	{
 		CGContextRef context = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
 		CGContextSetAllowsAntialiasing(context, NO);
-		CGContextSetAlpha(context, 0.7f);
-		[[NSColor greenColor] set];
+		CGContextSetAlpha(context, 0.9f);
+		[[NSColor colorWithPatternImage:[NSImage imageNamed:@"myimage2.png"]]set];
 		for (NSBezierPath* aPath in paths)
         {
             [aPath stroke];
+//            if (bDrawGradient)
+//            {
+//                NSGradient* gradient = [[NSGradient alloc] initWithStartingColor:[NSColor greenColor] endingColor:[NSColor lightGrayColor]];
+//                [gradient drawInBezierPath:aPath angle:45];
+//            }
+            
         }
 		
 	}	
@@ -75,10 +82,11 @@ const float FPS = 1.0f/50.0;
 
 -(void) mouseDown:(NSEvent *)theEvent
 {
+    bDrawGradient = FALSE;
     assert(currentPath == nil);
     currentPath = [[NSBezierPath alloc] init];
     
-    [currentPath setLineWidth:27];
+    [currentPath setLineWidth:25];
     [currentPath setLineJoinStyle:NSRoundLineJoinStyle];
     [currentPath setLineCapStyle:NSRoundLineCapStyle];
     [currentPath setFlatness:0.2];	
@@ -105,6 +113,7 @@ const float FPS = 1.0f/50.0;
 
 -(void) mouseUp:(NSEvent *)theEvent
 {
+    bDrawGradient = YES;
 	//if(points)
 	{
 		//[points addObject:[NSValue valueWithPoint:[theEvent locationInWindow]]];
