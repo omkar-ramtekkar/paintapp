@@ -11,11 +11,13 @@
 
 @interface DrawingView : NSView {
     NSBezierPath* currentPath;
-    NSPoint lastPoint;
     BOOL bClearDisplay;
     
     NSMutableArray* paths;
     
+    NSMutableArray* points;
+    
+    NSTimer* timer;
 
 
 }
