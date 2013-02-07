@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#include "PointFilter.h"
 
 
 @interface DrawingView : NSView {
@@ -18,8 +19,13 @@
     NSMutableArray* points;
     
     NSTimer* timer;
+	
+	CPointFilterChainPtr m_pPointFilterChain;
 
 
 }
+
+
+-(NSRect) createNSRectFrom:(NSPointArray) pointsArray withSize:(NSUInteger) pointCount;
 
 @end
