@@ -10,9 +10,12 @@
 #import <Quartz/Quartz.h>
 #include <string>
 
+#define BEZIER_DRAWING 0
+#define DRAW_ON_IMAGE 0
+
 #define CONVERT_POINT_TO_VIEW(point) [self convertPoint:point fromView:nil]
 
-const float FPS = 1.0f/25.0;
+const float FPS = 1.0f/30.0;
 BOOL bDrawGradient = FALSE;
 
 static NSImage* anImage = nil ;
@@ -52,7 +55,7 @@ static NSImage* anImage = nil ;
 		m_pPointFilterChain = new CPointFilterChain();
 		m_pPointFilterChain->AppendFilter(pMoveExpAvgFilter);
         m_pPointFilterChain->AppendFilter(pMoveExpAvgFilter2);
-		m_pPointFilterChain->AppendFilter(pCollinearFilter);
+		//m_pPointFilterChain->AppendFilter(pCollinearFilter);
         m_pPointFilterChain->AppendFilter(pCollinearFilter2);
 		
          
@@ -77,22 +80,25 @@ static NSImage* anImage = nil ;
 
 -(void) drawRect:(NSRect)dirtyRect
 {
-    
-    if(!currentPath)
-        return;
-    CGContextRef context = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
-
-    CGContextSaveGState(context);
     //clear everything
     {
         [[NSColor whiteColor] set];
         [[NSBezierPath bezierPathWithRect:dirtyRect] fill];
     }
 
-    
-    CGContextClipToRect(context, dirtyRect);
+    if(!currentPath)
+        return;
+    CGContextRef context = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
+
+   // CGContextSaveGState(context);
 
     
+   // CGContextClipToRect(context, dirtyRect);
+
+    
+    
+
+#if DRAW_ON_IMAGE
     double lineWidth = [currentPath lineWidth];
     NSRect rect = [currentPath bounds];
     rect.origin.x -= lineWidth;
@@ -100,24 +106,57 @@ static NSImage* anImage = nil ;
     rect.size.width += 2 * lineWidth;
     rect.size.height += 2 * lineWidth;
     
-   // NSImage* pathImage = [[NSImage alloc] initWithSize:rect.size];
+    NSImage* pathImage = [[NSImage alloc] initWithSize:rect.size];
     
-    //[pathImage lockFocus];
+    [pathImage lockFocus];
     [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationNone];
     
     [[NSColor clearColor] set];
     [[NSBezierPath bezierPathWithRect:rect] fill];
-    
+    CGContextConcatCTM(context, CGAffineTransformMakeTranslation(-rect.origin.x , -rect.origin.y ));
+
+#endif
+
     [[NSColor redColor] set];
     
+    CGContextSetShouldAntialias(context, YES);
+
+
+#if BEZIER_DRAWING
+
+    CGContextSaveGState(context);
+    CGContextSetAlpha(context, 0.2);
+    [currentPath stroke];
+    CGContextRestoreGState(context);
+
+    CGContextSaveGState(context);
+    CGContextSetAlpha(context, 0.5);
+    [currentPath  setLineWidth:27];
+    [currentPath stroke];
+    CGContextRestoreGState(context);
+
     
+    CGContextSaveGState(context);
+    CGContextSetAlpha(context, 0.3);
+    [currentPath  setLineWidth:20];    
+    [currentPath stroke];    
+    CGContextRestoreGState(context);
+    
+    CGContextSaveGState(context);
+    CGContextSetAlpha(context, 0.2);
+    [currentPath  setLineWidth:3];    
+    [currentPath stroke];    
+    [currentPath setLineWidth:30];
+    CGContextRestoreGState(context);
+    
+//    CGContextSaveGState(context);
+//    CGContextSetAlpha(context, 0.1);
+//    [currentPath stroke];
+//    CGContextRestoreGState(context);
 
-   // CGContextConcatCTM(context, CGAffineTransformMakeTranslation(-rect.origin.x , -rect.origin.y ));
-   
-    //[currentPath stroke];
-
-    CGContextSetShouldAntialias(context, NO);
-
+    
+#else
+    
     int i = 0;
     NSPoint lastPoint;
     for (NSValue* value in points)
@@ -129,13 +168,14 @@ static NSImage* anImage = nil ;
         else
         {
 			//CGContextSaveGState(context);
-			CGContextSetAlpha(context, 0.1);
+			CGContextSetAlpha(context, 0.2);
             NSPoint currentPoint = [value pointValue];
 			[NSBezierPath setDefaultLineCapStyle:NSRoundLineCapStyle];
 			[NSBezierPath setDefaultLineJoinStyle:NSRoundLineJoinStyle];
 			[NSBezierPath setDefaultLineWidth:30];
             [NSBezierPath strokeLineFromPoint:lastPoint toPoint:currentPoint];
 			
+            
 			[NSBezierPath setDefaultLineCapStyle:NSSquareLineCapStyle];
 			[NSBezierPath setDefaultLineWidth:20];
 			[NSBezierPath strokeLineFromPoint:lastPoint toPoint:currentPoint];
@@ -165,14 +205,18 @@ static NSImage* anImage = nil ;
         }
         ++i;
     }
+#endif
+
+#if DRAW_ON_IMAGE
+    [pathImage unlockFocus];
     
-    CGContextRestoreGState(context);
+    [pathImage drawInRect:rect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
     
-   // [pathImage unlockFocus];
+    [pathImage release];
+#endif
     
-    //[pathImage drawInRect:rect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-    
-    //[pathImage release];
+   // CGContextRestoreGState(context);
+
 }
 
 -(void) mouseDown:(NSEvent *)theEvent
@@ -208,7 +252,7 @@ static NSImage* anImage = nil ;
 	//if(points)
 	{
 		//[points addObject:[NSValue valueWithPoint:[theEvent locationInWindow]]];
-        [currentPath lineToPoint:CONVERT_POINT_TO_VIEW([theEvent locationInWindow])];
+        
         //[points addObject:[NSValue valueWithPoint:CONVERT_POINT_TO_VIEW([theEvent locationInWindow])]];
 	}
 	
@@ -224,6 +268,7 @@ static NSImage* anImage = nil ;
 		for (int i=0; i<outPts.size(); ++i)
 		{
 			[points addObject:[NSValue valueWithPoint:NSMakePoint(outPts[i].X, outPts[i].Y)]];
+            [currentPath lineToPoint:CONVERT_POINT_TO_VIEW(NSMakePoint(outPts[i].X, outPts[i].Y))];
 		}
 		
 		m_pPointFilterChain->ClearOutputBuffer();
