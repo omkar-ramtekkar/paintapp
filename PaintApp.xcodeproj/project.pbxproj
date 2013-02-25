@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		538FC61316C381E1005A375F /* PointFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 538FC61116C381E1005A375F /* PointFilter.cpp */; };
-		8F1DED2216B6E889000A05DA /* myimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1DED2016B6E889000A05DA /* myimage.png */; };
-		8F1DED2316B6E889000A05DA /* myimage2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1DED2116B6E889000A05DA /* myimage2.png */; };
+		8F02BE3A16DBEC0C007B4DE5 /* Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F02BE3916DBEC0C007B4DE5 /* Path.m */; };
 		8F63C59816ABD3100027D66F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F63C59716ABD3100027D66F /* Cocoa.framework */; };
 		8F63C5A216ABD3100027D66F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8F63C5A016ABD3100027D66F /* InfoPlist.strings */; };
 		8F63C5A416ABD3100027D66F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F63C5A316ABD3100027D66F /* main.m */; };
@@ -17,8 +16,6 @@
 		8F63C5AB16ABD3110027D66F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F63C5AA16ABD3110027D66F /* AppDelegate.m */; };
 		8F63C5AE16ABD3110027D66F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F63C5AC16ABD3110027D66F /* MainMenu.xib */; };
 		8F63C5B516ABD34F0027D66F /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F63C5B416ABD34F0027D66F /* DrawingView.m */; };
-		8F6F01B016B70755005DD74E /* myimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6F01AF16B70755005DD74E /* myimage.png */; };
-		8F6F01B316B707E5005DD74E /* image3.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6F01B216B707E5005DD74E /* image3.png */; };
 		8FDEC0E616BC57200074FE75 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FDEC0E516BC57200074FE75 /* Quartz.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,8 +23,8 @@
 		538FC61116C381E1005A375F /* PointFilter.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = PointFilter.cpp; path = PaintApp/PointFilter.cpp; sourceTree = SOURCE_ROOT; };
 		538FC61216C381E1005A375F /* PointFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PointFilter.h; path = PaintApp/PointFilter.h; sourceTree = SOURCE_ROOT; };
 		538FC63216C38432005A375F /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
-		8F1DED2016B6E889000A05DA /* myimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myimage.png; sourceTree = "<group>"; };
-		8F1DED2116B6E889000A05DA /* myimage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myimage2.png; sourceTree = "<group>"; };
+		8F02BE3816DBEC0C007B4DE5 /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Path.h; sourceTree = "<group>"; };
+		8F02BE3916DBEC0C007B4DE5 /* Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Path.m; sourceTree = "<group>"; };
 		8F63C59316ABD3100027D66F /* PaintApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaintApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F63C59716ABD3100027D66F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		8F63C59A16ABD3100027D66F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -43,8 +40,6 @@
 		8F63C5AD16ABD3110027D66F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		8F63C5B416ABD34F0027D66F /* DrawingView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = DrawingView.m; sourceTree = "<group>"; };
 		8F63C5B616ABD3590027D66F /* DrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingView.h; sourceTree = "<group>"; };
-		8F6F01AF16B70755005DD74E /* myimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myimage.png; sourceTree = "<group>"; };
-		8F6F01B216B707E5005DD74E /* image3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image3.png; sourceTree = "<group>"; };
 		8FDEC0E516BC57200074FE75 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -67,6 +62,8 @@
 				538FC61116C381E1005A375F /* PointFilter.cpp */,
 				538FC61216C381E1005A375F /* PointFilter.h */,
 				538FC63216C38432005A375F /* types.h */,
+				8F02BE3816DBEC0C007B4DE5 /* Path.h */,
+				8F02BE3916DBEC0C007B4DE5 /* Path.m */,
 			);
 			name = PointFilter;
 			sourceTree = "<group>";
@@ -74,10 +71,6 @@
 		8F1DED1F16B6E889000A05DA /* images */ = {
 			isa = PBXGroup;
 			children = (
-				8F6F01B216B707E5005DD74E /* image3.png */,
-				8F6F01AF16B70755005DD74E /* myimage.png */,
-				8F1DED2016B6E889000A05DA /* myimage.png */,
-				8F1DED2116B6E889000A05DA /* myimage2.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -199,10 +192,6 @@
 				8F63C5A216ABD3100027D66F /* InfoPlist.strings in Resources */,
 				8F63C5A816ABD3110027D66F /* Credits.rtf in Resources */,
 				8F63C5AE16ABD3110027D66F /* MainMenu.xib in Resources */,
-				8F1DED2216B6E889000A05DA /* myimage.png in Resources */,
-				8F1DED2316B6E889000A05DA /* myimage2.png in Resources */,
-				8F6F01B016B70755005DD74E /* myimage.png in Resources */,
-				8F6F01B316B707E5005DD74E /* image3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +206,7 @@
 				8F63C5AB16ABD3110027D66F /* AppDelegate.m in Sources */,
 				8F63C5B516ABD34F0027D66F /* DrawingView.m in Sources */,
 				538FC61316C381E1005A375F /* PointFilter.cpp in Sources */,
+				8F02BE3A16DBEC0C007B4DE5 /* Path.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
