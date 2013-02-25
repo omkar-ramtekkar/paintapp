@@ -99,7 +99,7 @@ BOOL bDrawGradient = FALSE;
 	
     NSColor* color = path.color;
     
-	[[color colorWithAlphaComponent:0.7] set];
+	[[color colorWithAlphaComponent:0.6] set];
 	
     [path setLineWidth:33];
 	[path stroke];
@@ -112,7 +112,7 @@ BOOL bDrawGradient = FALSE;
 	NSPoint points[3];
 	
 	CGContextRef cgContext = (CGContextRef)[context graphicsPort];
-	CGContextSetBlendMode(cgContext, kCGBlendModeMultiply);
+	CGContextSetBlendMode(cgContext, kCGBlendModeSourceAtop);
 	
     for (int i = 0; i < count; ++i)
     {
