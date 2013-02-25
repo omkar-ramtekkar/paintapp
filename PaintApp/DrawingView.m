@@ -99,13 +99,13 @@ BOOL bDrawGradient = FALSE;
 	
     NSColor* color = path.color;
     
-	[[color colorWithAlphaComponent:0.6] set];
+	[[color colorWithAlphaComponent:0.5] set];
 	
     [path setLineWidth:33];
 	[path stroke];
     [path setLineWidth:30];
 	
-    [[color colorWithAlphaComponent:0.1] set];
+    [[color colorWithAlphaComponent:0.2] set];
 	
 	NSUInteger count = [path elementCount];
 	NSPoint lastPt;
@@ -216,7 +216,7 @@ BOOL bDrawGradient = FALSE;
     }
     
     // now create a rect from those points
-    NSRect rect = NSMakeRect(xmin-30, ymin-30, xmax - xmin + 50, ymax - ymin + 50);
+    NSRect rect = NSMakeRect(xmin-20, ymin-20, xmax - xmin + 36, ymax - ymin + 36);
     
     return rect;
 }
