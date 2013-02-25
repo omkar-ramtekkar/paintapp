@@ -9,23 +9,16 @@
 #import <Cocoa/Cocoa.h>
 #include "PointFilter.h"
 
+@class Path;
 
 @interface DrawingView : NSView {
-    NSBezierPath* currentPath;
-    BOOL bClearDisplay;
-    
+    Path* currentPath;  
     NSMutableArray* paths;
-    
-    NSMutableArray* points;
-    
-    NSTimer* timer;
-	
+        
 	CPointFilterChainPtr m_pPointFilterChain;
-
-
 }
 
-
+-(void) drawPath: (Path*) path inContext:(NSGraphicsContext*) context;
 -(NSRect) createNSRectFrom:(NSPointArray) pointsArray withSize:(NSUInteger) pointCount;
 
 @end
