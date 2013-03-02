@@ -13,6 +13,6 @@
     NSColor* color;
 }
 
-@property (copy) NSColor* color;
+@property (assign) NSColor* color;
 
 @end

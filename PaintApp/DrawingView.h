@@ -14,11 +14,16 @@
 @interface DrawingView : NSView {
     Path* currentPath;  
     NSMutableArray* paths;
-        
+    IBOutlet NSMenu* contextMenu;
+    IBOutlet NSTableView* colorView;
+    
+    NSRect invalidateRect;
+    float penWidth;
+    NSColor* penColor;
+    
 	CPointFilterChainPtr m_pPointFilterChain;
 }
 
 -(void) drawPath: (Path*) path inContext:(NSGraphicsContext*) context;
--(NSRect) createNSRectFrom:(NSPointArray) pointsArray withSize:(NSUInteger) pointCount;
 
 @end
