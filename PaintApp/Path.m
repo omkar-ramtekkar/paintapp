@@ -13,4 +13,14 @@
 
 @synthesize color;
 
+- (void)lineToPoint:(NSPoint)point
+{
+    [super lineToPoint:point];
+}
+
+-(void) dealloc
+{
+    [self.color release];
+    [super dealloc];
+}
 @end

@@ -10,16 +10,16 @@
 #include "PointFilter.h"
 
 @class Path;
+@class PenContext;
 
 @interface DrawingView : NSView {
     Path* currentPath;  
     NSMutableArray* paths;
     IBOutlet NSMenu* contextMenu;
-    IBOutlet NSTableView* colorView;
     
     NSRect invalidateRect;
-    float penWidth;
-    NSColor* penColor;
+
+    PenContext* penContext;
     
 	CPointFilterChainPtr m_pPointFilterChain;
 }
