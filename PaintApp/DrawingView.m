@@ -15,7 +15,6 @@
 
 #define CONVERT_POINT_TO_VIEW(point) [self convertPoint:point fromView:nil]
 
-
 @implementation DrawingView(Private)
 
 -(double) getMainScreenRefreshRate
@@ -147,12 +146,12 @@
         paths = [[NSMutableArray alloc] init];
         penContext = [[PenContext alloc] init];
 
-        [NSBezierPath setDefaultFlatness:1];
+        [NSBezierPath setDefaultFlatness:0.2];
         [NSBezierPath setDefaultLineWidth: penContext.penWidth];
         [NSBezierPath setDefaultLineJoinStyle:NSRoundLineJoinStyle];
         [NSBezierPath setDefaultLineCapStyle:NSRoundLineCapStyle];
         
-		m_pPointFilterChain = new CPointFilterChain();
+		m_pPointFilterChain.reset(new CPointFilterChain());
 		m_pPointFilterChain->AppendFilter(new CMovingExpAverageFilter());
 		m_pPointFilterChain->AppendFilter(new CCollinearFilter());
         m_pPointFilterChain->AppendFilter(new CMovingExpAverageFilter());
@@ -161,8 +160,12 @@
 		m_pPointFilterChain->AppendFilter(new CCollinearFilter());
         m_pPointFilterChain->AppendFilter(new CMovingExpAverageFilter());
         m_pPointFilterChain->AppendFilter(new CCollinearFilter());
-        m_pPointFilterChain->AppendFilter(new CMovingExpAverageFilter());
-        m_pPointFilterChain->AppendFilter(new CCollinearFilter());
+//        m_pPointFilterChain->AppendFilter(new CMovingExpAverageFilter());
+//        m_pPointFilterChain->AppendFilter(new CCollinearFilter());
+        
+        m_pStartEndCapFilter.reset(new CPointFilterChain());
+		m_pStartEndCapFilter->AppendFilter(new CMovingExpAverageFilter());
+		m_pStartEndCapFilter->AppendFilter(new CCollinearFilter()); 
         
         
         invalidateRect = frame;
@@ -279,15 +282,14 @@
     CGContextRef cgContext = (CGContextRef)[context graphicsPort];
 
     CGContextSetBlendMode(cgContext, kCGBlendModeMultiply);
-	[[path.color colorWithAlphaComponent:0.5] set];
+	[[path.color colorWithAlphaComponent:0.7] set];
     CGFloat fPenWidth = [path lineWidth];
-	[path setFlatness:0.2];
-    [path setLineWidth: fPenWidth*1.10];
+    [path setLineWidth: fPenWidth+3];
 	[path stroke];
     
     [path setLineWidth: fPenWidth];
 
-    [[path.color colorWithAlphaComponent:0.3] set];
+    [[path.color colorWithAlphaComponent:0.2] set];
 	
 	CGContextSetBlendMode(cgContext, kCGBlendModeSourceAtop);
 
@@ -306,10 +308,13 @@
     [currentPath setLineWidth: penContext.penWidth];
     [currentPath setLineJoinStyle:NSRoundLineJoinStyle];
     [currentPath setLineCapStyle:NSRoundLineCapStyle];
-    [currentPath setFlatness:1.0];
+    [currentPath setFlatness:0.2];
 	NSPoint point = CONVERT_POINT_TO_VIEW([theEvent locationInWindow]);
 	m_pPointFilterChain->StartFilter(point.x, point.y);
 	m_pPointFilterChain->ClearOutputBuffer();
+
+    m_pStartEndCapFilter->StartFilter(point.x, point.y);
+	m_pStartEndCapFilter->ClearOutputBuffer();
     
     [paths addObject:currentPath];
     
@@ -322,24 +327,27 @@
 
 -(void) mouseDragged:(NSEvent *)theEvent
 {
-	if (m_pPointFilterChain)
+	if (m_pPointFilterChain.get() && m_pStartEndCapFilter.get())
 	{
 		NSPoint point = CONVERT_POINT_TO_VIEW([theEvent locationInWindow]);
 		
 		m_pPointFilterChain->MoveFilter(point.x, point.y);
+        m_pStartEndCapFilter->MoveFilter(point.x, point.y);
 		
-		std::vector<PointF> &outPts = m_pPointFilterChain->GetOutputBuffer();
-		NSPointArray pts = new NSPoint[outPts.size()];
-		for (int i=0; i<outPts.size(); ++i)
-		{
-			NSPoint pt = NSMakePoint(outPts[i].X, outPts[i].Y);
-            [currentPath lineToPoint:pt];
-			pts[i] = pt;
-		}
+        std::vector<PointF> &outPts = m_pPointFilterChain->GetOutputBuffer();
+        NSPointArray pts = NULL;
         
-        invalidateRect = NSUnionRect(invalidateRect, [self createNSRectFromPointArray:pts count:outPts.size()]);
+        pts = new NSPoint[outPts.size()];
+        for (int i=0; i<outPts.size(); ++i)
+        {
+            NSPoint pt = NSMakePoint(outPts[i].X, outPts[i].Y);
+            [currentPath lineToPoint:pt];
+            pts[i] = pt;
+        }
 		
+        invalidateRect = NSUnionRect(invalidateRect, [self createNSRectFromPointArray:pts count:outPts.size()]);
 		m_pPointFilterChain->ClearOutputBuffer();
+        m_pStartEndCapFilter->ClearOutputBuffer();
 		delete []pts;
 	}	
 }
@@ -348,6 +356,10 @@
 -(void) mouseUp:(NSEvent *)theEvent
 {
     NSPoint point = CONVERT_POINT_TO_VIEW([theEvent locationInWindow]);
+    
+    m_pPointFilterChain->EndFilter(point.x, point.y);
+    m_pPointFilterChain->ClearOutputBuffer();
+    
     m_pPointFilterChain->EndFilter(point.x, point.y);
     m_pPointFilterChain->ClearOutputBuffer();
 }
@@ -358,8 +370,8 @@
     [currentPath release];
     [paths release];
     [penContext release];
-	delete m_pPointFilterChain;
-	m_pPointFilterChain = NULL;
+    m_pStartEndCapFilter.reset();
+	m_pPointFilterChain.reset();
 	[super dealloc];
 }
 

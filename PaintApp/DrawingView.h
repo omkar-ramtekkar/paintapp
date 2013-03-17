@@ -22,6 +22,7 @@
     PenContext* penContext;
     
 	CPointFilterChainPtr m_pPointFilterChain;
+    CPointFilterChainPtr m_pStartEndCapFilter;
 }
 
 -(void) drawPath: (Path*) path inContext:(NSGraphicsContext*) context;
