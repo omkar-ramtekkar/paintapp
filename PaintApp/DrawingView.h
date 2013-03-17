@@ -10,15 +10,20 @@
 #include "PointFilter.h"
 
 @class Path;
+@class PenContext;
 
 @interface DrawingView : NSView {
     Path* currentPath;  
     NSMutableArray* paths;
-        
+    IBOutlet NSMenu* contextMenu;
+    
+    NSRect invalidateRect;
+
+    PenContext* penContext;
+    
 	CPointFilterChainPtr m_pPointFilterChain;
 }
 
 -(void) drawPath: (Path*) path inContext:(NSGraphicsContext*) context;
--(NSRect) createNSRectFrom:(NSPointArray) pointsArray withSize:(NSUInteger) pointCount;
 
 @end

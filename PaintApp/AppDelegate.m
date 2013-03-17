@@ -12,15 +12,21 @@
 
 @synthesize window = _window;
 
-- (void)dealloc
+-(void) awakeFromNib
 {
-    [super dealloc];
+    [self.window setFrame:[[NSScreen mainScreen] visibleFrame] display:YES animate:NO];
 }
 	
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
-    [self.window setFrame:[[NSScreen mainScreen] visibleFrame] display:YES animate:YES];
+}
+
+
+-(void) dealloc
+{
+    [[NSColorPanel sharedColorPanel] close];
+    [super dealloc];
 }
 
 @end
