@@ -9,6 +9,7 @@
 #import "MainToolbarManager.h"
 
 static NSString* ToolbarPenWidthIdentifier = @"ToolbarPenWidthIdentifier";
+static NSString* ToolbarClearAllInkIdentifier = @"ToolbarClearAllInkIdentifier";
 
 @implementation MainToolbarManager
 
@@ -31,6 +32,8 @@ static NSString* ToolbarPenWidthIdentifier = @"ToolbarPenWidthIdentifier";
             NSToolbarShowColorsItemIdentifier,
             NSToolbarSeparatorItemIdentifier,
             ToolbarPenWidthIdentifier,
+            NSToolbarSeparatorItemIdentifier,
+            ToolbarClearAllInkIdentifier,
             NSToolbarFlexibleSpaceItemIdentifier,
             NSToolbarCustomizeToolbarItemIdentifier,
             nil];
@@ -57,6 +60,13 @@ static NSString* ToolbarPenWidthIdentifier = @"ToolbarPenWidthIdentifier";
         [toolbarItem setPaletteLabel:@"Pen Width"];
         [toolbarItem setLabel:@"Pen Width"];
         [toolbarItem setView:slider];
+    }
+    else if([itemIdentifier isEqualToString:ToolbarClearAllInkIdentifier])
+    {
+        [toolbarItem setPaletteLabel:@"Clear All"];
+        [toolbarItem setLabel:@"Clear All"];
+        [toolbarItem setAction:@selector(clear:)];
+        [toolbarItem setImage:[NSImage imageNamed:@"ClearInk"]];
     }
     
     return toolbarItem;

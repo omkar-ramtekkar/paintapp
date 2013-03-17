@@ -1484,7 +1484,7 @@
 						<reference ref="848416646"/>
 						<reference ref="1008201564"/>
 					</array>
-					<array key="NSToolbarIBDefaultItems"/>
+					<array key="NSToolbarIBDefaultItems" id="0"/>
 					<array class="NSMutableArray" key="NSToolbarIBSelectableItems"/>
 				</object>
 				<object class="NSView" key="NSWindowView" id="439893737">
@@ -1507,7 +1507,6 @@
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="602741849"/>
-					<bool key="NSViewIsLayerTreeHost">YES</bool>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
@@ -2247,7 +2246,7 @@
 				<array key="orderedObjects">
 					<object class="IBObjectRecord">
 						<int key="objectID">0</int>
-						<array key="object" id="0"/>
+						<reference key="object" ref="0"/>
 						<reference key="children" ref="1048"/>
 						<nil key="parent"/>
 					</object>
@@ -3541,6 +3540,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/DrawingView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MainToolbarManager</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MainToolbarManager.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

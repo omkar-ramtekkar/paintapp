@@ -13,9 +13,7 @@
 #import "PenContext.h"
 
 
-#define MIN_REFRESH_RATE 25
 #define CONVERT_POINT_TO_VIEW(point) [self convertPoint:point fromView:nil]
-#define INFLATION 3
 
 
 @implementation DrawingView(Private)
@@ -248,7 +246,7 @@
 }
 
 
-
+#if 0
 -(void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
 {
     NSGraphicsContext* nsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:NO];
@@ -271,6 +269,7 @@
 		[self drawPath:path inContext:[NSGraphicsContext currentContext]];
 	}
 }
+#endif
 
 -(void) drawPath:(Path*) path inContext:(NSGraphicsContext*) context
 {
@@ -280,7 +279,7 @@
     CGContextRef cgContext = (CGContextRef)[context graphicsPort];
 
     CGContextSetBlendMode(cgContext, kCGBlendModeMultiply);
-	[[path.color colorWithAlphaComponent:0.6] set];
+	[[path.color colorWithAlphaComponent:0.5] set];
     CGFloat fPenWidth = [path lineWidth];
 	[path setFlatness:0.2];
     [path setLineWidth: fPenWidth*1.10];
@@ -288,7 +287,7 @@
     
     [path setLineWidth: fPenWidth];
 
-    [[path.color colorWithAlphaComponent:0.2] set];
+    [[path.color colorWithAlphaComponent:0.3] set];
 	
 	CGContextSetBlendMode(cgContext, kCGBlendModeSourceAtop);
 
@@ -368,7 +367,7 @@
 -(void)clear:(id)sender
 {
     [paths removeAllObjects];
-    [self display];
+    [self setNeedsDisplay:YES];
 }
 
 - (void)rightMouseUp:(NSEvent *)theEvent
