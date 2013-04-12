@@ -236,18 +236,22 @@
 
     if(!currentPath)
         return;
-    CGContextRef context = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
-
-    [[NSColor redColor] set];
     
-    CGContextSetShouldAntialias(context, YES);
+    [self drawOilPaintPaths:paths inContext:[NSGraphicsContext currentContext]];
     
-	for(Path* path in paths)
-	{
-		[self drawPath:path inContext:[NSGraphicsContext currentContext]];
-	}
 }
 
+
+-(void) drawOilPaintPaths:(NSArray*) oilPaintPaths inContext:(NSGraphicsContext*) pContext
+{
+
+    [pContext setShouldAntialias:YES];
+    
+	for(Path* path in oilPaintPaths)
+	{
+		[self drawPath:path inContext:pContext];
+	}
+}
 
 #if 0
 -(void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
@@ -282,14 +286,14 @@
     CGContextRef cgContext = (CGContextRef)[context graphicsPort];
 
     CGContextSetBlendMode(cgContext, kCGBlendModeMultiply);
-	[[path.color colorWithAlphaComponent:0.7] set];
+	[[path.color colorWithAlphaComponent:0.6] set];
     CGFloat fPenWidth = [path lineWidth];
     [path setLineWidth: fPenWidth+3];
 	[path stroke];
     
     [path setLineWidth: fPenWidth];
 
-    [[path.color colorWithAlphaComponent:0.2] set];
+    [[path.color colorWithAlphaComponent:0.3] set];
 	
 	CGContextSetBlendMode(cgContext, kCGBlendModeSourceAtop);
 
