@@ -12,7 +12,7 @@
 #define DEFAULT_PEN_WIDTH   30
 #define PEN_MAX_WIDTH       60
 #define PEN_MIN_WIDTH       5
-#define DEFAULT_PEN_COLOR [NSColor greenColor]
+#define DEFAULT_PEN_COLOR [NSColor magentaColor]
 
 #define MIN_REFRESH_RATE 25
 #define INFLATION 3

@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <map>
+#include <iostream>
 
 
 
@@ -131,7 +132,7 @@ public:
 
 };
 
-typedef CPointFilterChain* CPointFilterChainPtr;
+typedef std::auto_ptr<CPointFilterChain> CPointFilterChainPtr;
 
 // Simple passthrough filter (simply copies all input points to output)
 class CPassthroughFilter : public IPointFilter

@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 
 @interface PenContext : NSObject
 
-@property (retain) NSColor* color;
-@property (assign) float penWidth;
+@property (retain, nonatomic) NSColor* color;
+@property (assign, nonatomic) float penWidth;
+@property (retain, nonatomic) CAShapeLayer* penCreationalLayer;
 
 @end
