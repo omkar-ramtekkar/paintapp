@@ -15,6 +15,7 @@
 		8F63C5A816ABD3110027D66F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 8F63C5A616ABD3100027D66F /* Credits.rtf */; };
 		8F63C5AB16ABD3110027D66F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F63C5AA16ABD3110027D66F /* AppDelegate.m */; };
 		8F63C5B516ABD34F0027D66F /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F63C5B416ABD34F0027D66F /* DrawingView.m */; };
+		8F769E3E171867CC00A02CCD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F769E3D171867CC00A02CCD /* QuartzCore.framework */; };
 		8FAC82C616F5C8B2001A5E74 /* PaintApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC82C516F5C8B2001A5E74 /* PaintApp.icns */; };
 		8FC4A54016F4A5F200D4C6BA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FC4A53E16F4A5F200D4C6BA /* MainMenu.xib */; };
 		8FC4A55416F51FA400D4C6BA /* MainToolbarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4A55316F51FA400D4C6BA /* MainToolbarManager.m */; };
@@ -42,6 +43,7 @@
 		8F63C5AA16ABD3110027D66F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8F63C5B416ABD34F0027D66F /* DrawingView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = DrawingView.m; path = ../DrawingView.m; sourceTree = "<group>"; };
 		8F63C5B616ABD3590027D66F /* DrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawingView.h; path = ../DrawingView.h; sourceTree = "<group>"; };
+		8F769E3D171867CC00A02CCD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8FAC82C516F5C8B2001A5E74 /* PaintApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PaintApp.icns; sourceTree = SOURCE_ROOT; };
 		8FC4A53F16F4A5F200D4C6BA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		8FC4A55216F51FA400D4C6BA /* MainToolbarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainToolbarManager.h; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			files = (
 				8F63C59816ABD3100027D66F /* Cocoa.framework in Frameworks */,
 				8FDEC0E616BC57200074FE75 /* Quartz.framework in Frameworks */,
+				8F769E3E171867CC00A02CCD /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +122,7 @@
 		8F63C59916ABD3100027D66F /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8F769E3D171867CC00A02CCD /* QuartzCore.framework */,
 				8FDEC0E516BC57200074FE75 /* Quartz.framework */,
 				8F63C59A16ABD3100027D66F /* AppKit.framework */,
 				8F63C59C16ABD3100027D66F /* Foundation.framework */,

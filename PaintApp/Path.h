@@ -11,7 +11,6 @@
 @interface Path : NSBezierPath
 {
     NSColor* color;
-    Path* effectPath;
 }
 
 @property (retain) NSColor* color;

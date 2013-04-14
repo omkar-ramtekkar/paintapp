@@ -12,14 +12,21 @@
 @class Path;
 @class PenContext;
 
+#define _UseLayers 1
+
 @interface DrawingView : NSView {
+    
+    IBOutlet NSMenu* contextMenu;
+    NSRect invalidateRect;
+    PenContext* penContext;
+    
+#if _UseLayers
+    CALayer* rootLayer;
+    //CGMutablePathRef cgCurrentPath;
+#else
     Path* currentPath;  
     NSMutableArray* paths;
-    IBOutlet NSMenu* contextMenu;
-    
-    NSRect invalidateRect;
-
-    PenContext* penContext;
+#endif
     
 	CPointFilterChainPtr m_pPointFilterChain;
     CPointFilterChainPtr m_pStartEndCapFilter;
