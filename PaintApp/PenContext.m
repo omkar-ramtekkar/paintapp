@@ -12,6 +12,5 @@
 
 @synthesize color = _color;
 @synthesize penWidth = _penWidth;
-@synthesize penCreationalLayer = _penCreationalLayer;
 
 @end
