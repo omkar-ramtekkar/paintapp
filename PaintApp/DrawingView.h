@@ -11,8 +11,8 @@
 
 @class Path;
 @class PenContext;
+@class PatternGenerator;
 
-#define _UseLayers 1
 
 @interface DrawingView : NSView {
     
@@ -21,7 +21,9 @@
     PenContext* penContext;
     
 #if _UseLayers
+    CGImageRef penMask;
     CALayer* rootLayer;
+    PatternGenerator* pattern;
     //CGMutablePathRef cgCurrentPath;
 #else
     Path* currentPath;  
@@ -34,5 +36,6 @@
 
 -(void) drawOilPaintPaths:(NSArray*) oilPaintPaths inContext:(NSGraphicsContext*) pContext;
 -(void) drawPath: (Path*) path inContext:(NSGraphicsContext*) context;
+- (CGImageRef) createMaskImage;
 
 @end

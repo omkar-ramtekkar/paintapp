@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		538FC61316C381E1005A375F /* PointFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 538FC61116C381E1005A375F /* PointFilter.cpp */; };
 		8F02BE3A16DBEC0C007B4DE5 /* Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F02BE3916DBEC0C007B4DE5 /* Path.m */; };
+		8F22E8C9172D7D5B00418C06 /* PatternGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8F22E8C8172D7D5B00418C06 /* PatternGenerator.mm */; };
 		8F63C59816ABD3100027D66F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F63C59716ABD3100027D66F /* Cocoa.framework */; };
 		8F63C5A216ABD3100027D66F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8F63C5A016ABD3100027D66F /* InfoPlist.strings */; };
 		8F63C5A416ABD3100027D66F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F63C5A316ABD3100027D66F /* main.m */; };
@@ -30,6 +31,8 @@
 		538FC63216C38432005A375F /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		8F02BE3816DBEC0C007B4DE5 /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Path.h; sourceTree = "<group>"; };
 		8F02BE3916DBEC0C007B4DE5 /* Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Path.m; sourceTree = "<group>"; };
+		8F22E8C7172D7D5B00418C06 /* PatternGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatternGenerator.h; sourceTree = "<group>"; };
+		8F22E8C8172D7D5B00418C06 /* PatternGenerator.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = PatternGenerator.mm; sourceTree = "<group>"; };
 		8F63C59316ABD3100027D66F /* PaintApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaintApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F63C59716ABD3100027D66F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		8F63C59A16ABD3100027D66F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -79,6 +82,8 @@
 				8F02BE3916DBEC0C007B4DE5 /* Path.m */,
 				8FC4A55516F51FB300D4C6BA /* PenContext.h */,
 				8FC4A55616F51FB300D4C6BA /* PenContext.m */,
+				8F22E8C7172D7D5B00418C06 /* PatternGenerator.h */,
+				8F22E8C8172D7D5B00418C06 /* PatternGenerator.mm */,
 			);
 			name = PointFilter;
 			sourceTree = "<group>";
@@ -91,6 +96,13 @@
 			);
 			name = views;
 			path = images;
+			sourceTree = "<group>";
+		};
+		8F3199AA171AA0A000A5A031 /* Patterns */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Patterns;
 			sourceTree = "<group>";
 		};
 		8F63C58816ABD3100027D66F = {
@@ -133,6 +145,7 @@
 		8F63C59D16ABD3100027D66F /* PaintApp */ = {
 			isa = PBXGroup;
 			children = (
+				8F3199AA171AA0A000A5A031 /* Patterns */,
 				8FE7633016F59CED0078BDA6 /* Images */,
 				8FC4A55016F5174700D4C6BA /* toolbar */,
 				538FC60C16C381CF005A375F /* PointFilter */,
@@ -248,6 +261,7 @@
 				8F02BE3A16DBEC0C007B4DE5 /* Path.m in Sources */,
 				8FC4A55416F51FA400D4C6BA /* MainToolbarManager.m in Sources */,
 				8FC4A55716F51FB300D4C6BA /* PenContext.m in Sources */,
+				8F22E8C9172D7D5B00418C06 /* PatternGenerator.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
