@@ -36,6 +36,8 @@
 
 -(void) drawOilPaintPaths:(NSArray*) oilPaintPaths inContext:(NSGraphicsContext*) pContext;
 -(void) drawPath: (Path*) path inContext:(NSGraphicsContext*) context;
+#if _UseLayers
 - (CGImageRef) createMaskImage;
+#endif
 
 @end

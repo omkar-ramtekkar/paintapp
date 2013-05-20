@@ -35,15 +35,6 @@
             _pattern[i][j] = rand() % 2;
         }
     }
-    
-    for (unsigned int i=0; i < _iMaxSize ; ++i)
-    {
-        for (unsigned int j=0; j<_iMaxLength; ++j) 
-        {
-            NSLog(@"%i",(int)_pattern[i][j]);
-        }
-        NSLog(@"\n");
-    }
 }
 //-(NSUInteger**) getPatternForStrokeWidth:(NSUInteger) width forLength:(NSUInteger) length
 //{

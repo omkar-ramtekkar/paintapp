@@ -59,32 +59,58 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
             [NSBezierPath strokeLineFromPoint:lastPt toPoint:element->points[0]];
             
             NSCompositingOperation op = [[NSGraphicsContext currentContext] compositingOperation];
-            [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeDestinationIn];
+            [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceAtop];
 
+            CGContextRef cgContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
+            
             NSUInteger* pattern = [drawingInfo->pattern getPatternForStrokeWidth:drawingInfo->layer.lineWidth forLocation:lastPt];
             
             CGPoint ptStart = lastPt;
-            ptStart.y -= drawingInfo->layer.lineWidth/2;
+
             
             CGPoint ptEnd = element->points[0];
-            ptEnd.y -= drawingInfo->layer.lineWidth/2;
+            
+            int dx = abs(ptStart.x - ptEnd.x);
+            int dy = abs(ptStart.y - ptEnd.y);
+            
+            if (dx < dy) // dx == 0 line is vertical, dx < dy line is vertically inclined
+            {
+                ptStart.x -= drawingInfo->layer.lineWidth/2;
+                ptEnd.x -= drawingInfo->layer.lineWidth/2;
+            }
+            else
+            {
+                ptStart.y -= drawingInfo->layer.lineWidth/2;
+                ptEnd.y -= drawingInfo->layer.lineWidth/2;
+            }
             
             [NSBezierPath setDefaultLineWidth:0.2];
             
             for (unsigned int i=0; i<(NSUInteger)drawingInfo->layer.lineWidth/2; ++i)
             {
-                for (unsigned j=0; j<1; ++j)
                 {
                     if(pattern[i])
                     {
-                        //CGPoint pts[2] = {ptStart, ptEnd};
-                        //CGContextStrokeLineSegments(cgContext, pts, 2);
-                        
+                        [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceAtop];
+                        [NSBezierPath strokeLineFromPoint:ptStart toPoint: ptEnd];
+                    }
+                    else
+                    {
+                        CGContextSetBlendMode(cgContext, kCGBlendModeSourceAtop);
+                        [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceAtop];
                         [NSBezierPath strokeLineFromPoint:ptStart toPoint: ptEnd];
                     }
                     
-                    ptStart.y += 2;
-                    ptEnd.y += 2;
+                    if (dx < dy)
+                    {
+                        ptStart.x += 2;
+                        ptEnd.x += 2;
+                    }
+                    else
+                    {
+                        ptStart.y += 2;
+                        ptEnd.y += 2;
+                    }
                 }
             }
             
@@ -315,7 +341,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 
 }
 
-
+#if _UseLayers
 - (CGContextRef) createBitmapContext
 {
 	// Create the offscreen bitmap context that we can draw the brush tip into.
@@ -377,7 +403,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 	
 	return image;
 }
-
+#endif
     
 #pragma mark Responder API
 
@@ -439,7 +465,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
         CGContextSetLineJoin(cgContext, kCGLineJoinRound);
         
         CGContextSaveGState(cgContext);
-        CGContextSetLineWidth(cgContext, shapeLayer.lineWidth+3);
+        CGContextSetLineWidth(cgContext, shapeLayer.lineWidth+4);
         CGContextSetBlendMode(cgContext, kCGBlendModeMultiply);
         CGContextSetAlpha(cgContext, 0.6);
         CGContextAddPath(cgContext, shapeLayer.path);
@@ -447,10 +473,17 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
         CGContextRestoreGState(cgContext);
         
 
+//        CGContextSaveGState(cgContext);
+//        CGContextSetLineWidth(cgContext, shapeLayer.lineWidth);
+//        CGContextSetAlpha(cgContext, 0.4);
+//        CGContextAddPath(cgContext, shapeLayer.path);
+//        CGContextStrokePath(cgContext);
+//        CGContextRestoreGState(cgContext);
+        
         CGContextSaveGState(cgContext);
         CGContextSetAlpha(cgContext, 0.3);
         CGContextSetLineWidth(cgContext, shapeLayer.lineWidth);
-//        CGContextSetBlendMode(cgContext, kCGBlendModeSoftLight);
+        CGContextSetBlendMode(cgContext, kCGBlendModeSoftLight);
         DrawingInfo info = {shapeLayer, penMask, pattern};
         CGPathApply(shapeLayer.path, &info, MyCGPathApplierFunc);
         CGContextRestoreGState(cgContext);
