@@ -12,43 +12,33 @@
 #import "Path.h"
 #import "PenContext.h"
 #import "PatternGenerator.h"
+#import "OilPaintLayer.h"
 
 struct DrawingInfo
 {
-    CAShapeLayer* layer;
+    OilPaintLayer* layer;
     CGImageRef mask;
     PatternGenerator* pattern;
 };
 
 #define CONVERT_POINT_TO_VIEW(point) [self convertPoint:point fromView:nil]
 
-static long lPenPointCounter_g = 0;
-
 
 #pragma mark --------- Global Function Declaration -----------
-
-void startGlobalPenPointCounter();
-void finishGlobalPenPointCounter();
-void resetGlobalPenPointCounter();
-void incrementGlobalPenPointCounter();
 void MyCGPathApplierFunc (void *info, const CGPathElement *element);
 
 
 #pragma mark --------- Global Function Defination -----------
 
-void resetGlobalPenPointCounter() { lPenPointCounter_g = 0; }
-
-void startGlobalPenPointCounter() {  resetGlobalPenPointCounter(); }
-
-void finishGlobalPenPointCounter() { resetGlobalPenPointCounter(); }
-
-void incrementGlobalPenPointCounter() { ++lPenPointCounter_g; }
 
 void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 {
     DrawingInfo* drawingInfo = (DrawingInfo*) info;
     [NSBezierPath setDefaultLineWidth:drawingInfo->layer.lineWidth];
     
+    NSCompositingOperation op = [[NSGraphicsContext currentContext] compositingOperation];
+    [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceOver];
+
     CGPoint lastPt;
     switch (element->type) {
         case kCGPathElementMoveToPoint:
@@ -57,11 +47,6 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
         case kCGPathElementAddLineToPoint:
         {
             [NSBezierPath strokeLineFromPoint:lastPt toPoint:element->points[0]];
-            
-            NSCompositingOperation op = [[NSGraphicsContext currentContext] compositingOperation];
-            [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeDestinationIn];
-
-            //CGContextRef cgContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
             
             NSUInteger* pattern = [drawingInfo->pattern getPatternForStrokeWidth:drawingInfo->layer.lineWidth forLocation:lastPt];
             
@@ -84,7 +69,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
                 ptEnd.y -= drawingInfo->layer.lineWidth/2;
             }
             
-            [NSBezierPath setDefaultLineWidth:0.2];
+            [NSBezierPath setDefaultLineWidth:0.25];
             
             for (unsigned int i=0; i<(NSUInteger)drawingInfo->layer.lineWidth/2; ++i)
             {
@@ -107,8 +92,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
                     }
                 }
             }
-            
-            
+                        
             [[NSGraphicsContext currentContext] setCompositingOperation:op];
             lastPt = element->points[0];
         }
@@ -141,7 +125,6 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
     [NSBezierPath setDefaultLineWidth:[path lineWidth]];
     CGContextRef context = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
     CGContextSetLineWidth(context, [path lineWidth]);
-    //NSPoint pts[2];
     
     for (int i = 0; i < count; ++i)
     {
@@ -308,6 +291,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
     rootLayer.position = NSMakePoint(NSMidX(self.frame), NSMidY(self.frame));
     rootLayer.borderColor = [[NSColor redColor] CGColor];
     rootLayer.borderWidth = 3;
+    viewImage = nil;
     
     pattern = [[PatternGenerator alloc] init];
     
@@ -316,13 +300,6 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
     [self setWantsLayer:YES];
     [rootLayer setNeedsDisplay];
     [self setNeedsDisplay:YES];
-    penMask = [[[[NSImage imageNamed:@"Mask.png"] representations] objectAtIndex:0] CGImage];
-    penMask = [self createMaskImage];
-    CGRect boundingBox =  CGRectMake(0, 0, CGImageGetWidth(penMask), CGImageGetHeight(penMask));
-    NSImage* img = [[NSImage alloc] initWithCGImage:penMask size:boundingBox.size];
-    [[img TIFFRepresentation] writeToFile:@"/Users/om/Desktop/Mask.png" atomically:YES];
-    
-    [img release];
     
 #else
     currentPath = nil;
@@ -334,70 +311,6 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 #endif
 
 }
-
-#if _UseLayers
-- (CGContextRef) createBitmapContext
-{
-	// Create the offscreen bitmap context that we can draw the brush tip into.
-	//	The context should be the size of the shape bounding box.
-	CGRect boundingBox =  CGRectMake(0, 0, CGImageGetWidth(penMask), CGImageGetHeight(penMask));
-	
-	size_t width = CGRectGetWidth(boundingBox);
-	size_t height = CGRectGetHeight(boundingBox);
-	size_t bitsPerComponent = 8;
-	size_t bytesPerRow = (width + 0x0000000F) & ~0x0000000F; // 16 byte aligned is good
-	size_t dataSize = bytesPerRow * height;
-	void* data = calloc(1, dataSize);
-	CGColorSpaceRef colorspace = CGColorSpaceCreateWithName(kCGColorSpaceGenericGray);
-	
-	CGContextRef bitmapContext = CGBitmapContextCreate(data, width, height, bitsPerComponent,
-													   bytesPerRow, colorspace, 
-													   kCGImageAlphaNone);
-	
-	CGColorSpaceRelease(colorspace);
-	
-	CGContextSetGrayFillColor(bitmapContext, 0.0, 1.0);
-	CGContextFillRect(bitmapContext, CGRectMake(0, 0, width, height));
-	
-	return bitmapContext;
-}
-
-- (void) disposeBitmapContext:(CGContextRef)bitmapContext
-{
-	// Free up the offscreen bitmap
-	void * data = CGBitmapContextGetData(bitmapContext);
-	CGContextRelease(bitmapContext);
-	free(data);	
-}
-
-
-- (CGImageRef) createMaskImage
-{
-	// Create a bitmap context to hold our brush image
-	CGContextRef bitmapContext = [self createBitmapContext];
-    CGRect boundingBox =  CGRectMake(0, 0, CGImageGetWidth(penMask), CGImageGetHeight(penMask));
-	CGContextSetGrayFillColor(bitmapContext, 1.0, 1.0);
-	
-	// The way we acheive "softness" on the edges of the brush is to draw
-	//	the shape full size with some transparency, then keep drawing the shape
-	//	at smaller sizes with the same transparency level. Thus, the center
-	//	builds up and is darker, while edges remain partially transparent.
-	
-		
-	// Since we're drawing shape on top of shape, we only need to set the alpha once
-	CGContextSetAlpha(bitmapContext, 0.5);
-	
-	CGContextDrawImage(bitmapContext, boundingBox, penMask);
-	
-	// Create the brush tip image from our bitmap context
-	CGImageRef image = CGBitmapContextCreateImage(bitmapContext);
-	
-	// Free up the offscreen bitmap
-	[self disposeBitmapContext:bitmapContext];
-	
-	return image;
-}
-#endif
     
 #pragma mark Responder API
 
@@ -430,68 +343,80 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 
 #pragma mark Drawing API
 
-
 -(void) redraw
 {
+    
     [self setNeedsDisplayInRect:invalidateRect];
     invalidateRect = NSZeroRect;
 }
 
 #if _UseLayers
 -(void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
-{
+{    
     if ([layer.name isEqualToString:@"PenCreationalLayer"])
     {
         NSGraphicsContext* nsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:NO];
         
         [nsContext setShouldAntialias:YES];
+    
         
         [NSGraphicsContext setCurrentContext:nsContext];
         [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceOver];
         
-        CAShapeLayer* shapeLayer = (CAShapeLayer*) layer;
+        if ([viewImage.name isEqualToString:@"Drawn"])
+        {
+            NSLog(@"DrawLayer : Only Image Draw");
+            [viewImage drawInRect:layer.frame fromRect:NSMakeRect(0, 0, viewImage.size.width, viewImage.size.height) operation:NSCompositeSourceOver fraction:1.0];
+            
+            return;           
+        }
+        else if([viewImage.name isEqualToString:@"LayerDraw"])
+        {
+            NSLog(@"DrawLayer : Layer Image Draw");
+            [viewImage drawInRect:layer.frame fromRect:NSMakeRect(0, 0, viewImage.size.width, viewImage.size.height) operation:NSCompositeSourceOver fraction:1.0];
+        }
+        
+        
+        
+        
+        OilPaintLayer* shapeLayer = (OilPaintLayer*) layer;
         
         CGContextRef cgContext = ctx;
         
-        CGContextSetFlatness(cgContext, 0.2);
-        CGContextSetStrokeColorWithColor(cgContext, shapeLayer.strokeColor);
-        CGContextSetLineCap(cgContext, kCGLineCapRound);
-        CGContextSetLineJoin(cgContext, kCGLineJoinRound);
-        
-        CGContextSaveGState(cgContext);
-        CGContextSetLineWidth(cgContext, shapeLayer.lineWidth+4);
         CGContextSetBlendMode(cgContext, kCGBlendModeMultiply);
-        CGContextSetAlpha(cgContext, 0.6);
-        CGContextAddPath(cgContext, shapeLayer.path);
-        CGContextStrokePath(cgContext);
-        CGContextRestoreGState(cgContext);
+        [[[NSColor colorWithCGColor:shapeLayer.strokeColor] colorWithAlphaComponent:0.6] set];
+        CGFloat fPenWidth = shapeLayer.bezierPath.lineWidth;
+        [shapeLayer.bezierPath setLineWidth: fPenWidth + 4];
+        [shapeLayer.bezierPath stroke];
         
-
-//        CGContextSaveGState(cgContext);
-//        CGContextSetLineWidth(cgContext, shapeLayer.lineWidth);
-//        CGContextSetAlpha(cgContext, 0.4);
-//        CGContextAddPath(cgContext, shapeLayer.path);
-//        CGContextStrokePath(cgContext);
-//        CGContextRestoreGState(cgContext);
+        [shapeLayer.bezierPath setLineWidth: fPenWidth];
+        
+        [[[NSColor colorWithCGColor:shapeLayer.strokeColor] colorWithAlphaComponent:0.3] set];
+        
+        CGContextSetBlendMode(cgContext, kCGBlendModeSourceAtop);
         
         CGContextSaveGState(cgContext);
-        CGContextSetAlpha(cgContext, 0.3);
         CGContextSetLineWidth(cgContext, shapeLayer.lineWidth);
         CGContextSetBlendMode(cgContext, kCGBlendModeSoftLight);
         DrawingInfo info = {shapeLayer, penMask, pattern};
         CGPathApply(shapeLayer.path, &info, MyCGPathApplierFunc);
         CGContextRestoreGState(cgContext);
-        
-//        CGContextSaveGState(cgContext);
-//        CGContextSetLineWidth(cgContext, 5);
-//        CGContextSetBlendMode(cgContext, kCGBlendModeDestinationIn);
-//        CGContextSetAlpha(cgContext, 0.0);
-//        CGContextAddPath(cgContext, shapeLayer.path);
-//        CGContextStrokePath(cgContext);
-//        CGContextRestoreGState(cgContext);
-
     }
     
+}
+
+- (NSImage *)imageWithSubviews
+{
+    NSSize mySize = self.bounds.size;
+    NSSize imgSize = NSMakeSize( mySize.width, mySize.height );
+    
+    NSBitmapImageRep *bir = [self bitmapImageRepForCachingDisplayInRect:[self bounds]];
+    [bir setSize:imgSize];
+    [self cacheDisplayInRect:[self bounds] toBitmapImageRep:bir];
+    
+    NSImage* image = [[[NSImage alloc]initWithSize:imgSize] autorelease];
+    [image addRepresentation:bir];
+    return image;
 }
 
 #else
@@ -507,6 +432,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 
     if(!currentPath)
         return;
+    
     
     [self drawOilPaintPaths:paths inContext:[NSGraphicsContext currentContext]];
     
@@ -526,6 +452,28 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 
 -(void) drawPath:(Path*) path inContext:(NSGraphicsContext*) context
 {
+    
+//    NSImage *image = nil;
+//    NSGraphicsContext* originalContext = context;
+//    
+//    if (path == currentPath)
+//    {
+//        [NSGraphicsContext saveGraphicsState];
+//        
+//        image = [[NSImage alloc] initWithSize:NSMakeSize(path.bounds.size.width + 90, path.bounds.size.height+90)];
+//        [image lockFocus];
+//        
+//        [[NSColor clearColor] set];
+//        NSRectFill(path.bounds);
+//        context = [NSGraphicsContext currentContext];
+//        
+//        NSAffineTransform* tranform = [NSAffineTransform transform];
+//        
+//        [tranform translateXBy:-path.bounds.origin.x yBy:-path.bounds.origin.y];
+//        
+//        [tranform concat];
+//    }
+    
 	
 	[context setShouldAntialias:YES];
 	
@@ -541,9 +489,28 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 
     [[path.color colorWithAlphaComponent:0.3] set];
 	
-	CGContextSetBlendMode(cgContext, kCGBlendModeSourceAtop);
+	//CGContextSetBlendMode(cgContext, kCGBlendModeNormal);
+    CGContextSetBlendMode(cgContext, kCGBlendModeSourceAtop);
 
 	[self _strokePathPoints:path];
+    
+//    if (path == currentPath)
+//    {
+//        [image unlockFocus];
+//        context = originalContext;
+//        
+//        
+//        
+//        [image drawAtPoint:path.bounds.origin fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0f];
+////        [[NSColor greenColor] setStroke];
+////        [NSBezierPath setDefaultLineWidth:2];
+////        [[NSBezierPath bezierPathWithRect:path.bounds] stroke];
+////        
+//        [image release];
+//        [NSGraphicsContext restoreGraphicsState];
+//        
+////        [[image TIFFRepresentation] writeToFile:[NSString stringWithFormat:@"/Users/om/Desktop/Images/%i.png", ++lPenPointCounter_g] atomically:YES];
+//    }
 }
 
 #pragma mark Event API
@@ -552,15 +519,20 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 -(void) mouseDown:(NSEvent *)theEvent
 {
     CGMutablePathRef cgCurrentPath = CGPathCreateMutable();
-    CAShapeLayer* shapeLayer = [[[CAShapeLayer alloc] init] autorelease];
-    
-    NSArray* filters = [CIFilter filterNamesInCategory:kCICategoryBlur];
-    NSLog(@"%@", filters);
+    OilPaintLayer* shapeLayer = [[[OilPaintLayer alloc] init] autorelease];
+    if (viewImage)
+    {
+        viewImage.name = @"LayerDraw";
+    }
     
     [shapeLayer setDelegate:self];
     [shapeLayer setName:@"PenCreationalLayer"];
     shapeLayer.backgroundColor = [[NSColor clearColor] CGColor];
     shapeLayer.path = cgCurrentPath;
+    shapeLayer.bezierPath = [NSBezierPath bezierPath];
+    shapeLayer.bezierPath.lineCapStyle = NSRoundLineCapStyle;
+    shapeLayer.bezierPath.lineJoinStyle = NSRoundLineJoinStyle;
+    shapeLayer.bezierPath.lineWidth = penContext.penWidth;
     shapeLayer.lineCap = kCALineCapRound;
     shapeLayer.lineJoin = kCALineJoinRound;
     shapeLayer.lineWidth = penContext.penWidth;
@@ -569,6 +541,11 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
     shapeLayer.position = NSMakePoint(NSMidX(self.frame), NSMidY(self.frame));
     shapeLayer.borderWidth = 5;
     shapeLayer.borderColor = [[NSColor blueColor] CGColor];
+    
+    for (CALayer* layer in rootLayer.sublayers)
+    {
+        [layer removeFromSuperlayer];
+    }
     
     [rootLayer addSublayer:shapeLayer];
     
@@ -582,6 +559,10 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 	m_pStartEndCapFilter->ClearOutputBuffer();
         
     CGPathMoveToPoint((CGMutablePathRef)shapeLayer.path, NULL, pt.x, pt.y);
+    [shapeLayer.bezierPath moveToPoint:pt];
+    
+    CGPathAddLineToPoint((CGMutablePathRef)shapeLayer.path, NULL, pt.x, pt.y);
+    [shapeLayer.bezierPath lineToPoint:pt];
 	//CGPathAddLineToPoint((CGMutablePathRef)shapeLayer.path, NULL, pt.x, pt.y);
     
     CGFloat lineWidth = shapeLayer.lineWidth;
@@ -626,7 +607,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 {
 	if (m_pPointFilterChain.get() && m_pStartEndCapFilter.get())
 	{
-        CAShapeLayer* shapeLayer = (CAShapeLayer*)[[self.layer sublayers] lastObject];
+        OilPaintLayer* shapeLayer = (OilPaintLayer*)[[self.layer sublayers] lastObject];
 
 		NSPoint pt = CONVERT_POINT_TO_VIEW([theEvent locationInWindow]);
         pt = [shapeLayer convertPoint:pt fromLayer:rootLayer];
@@ -644,6 +625,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
         {
             NSPoint pt = NSMakePoint(outPts[i].X, outPts[i].Y);
             CGPathAddLineToPoint((CGMutablePathRef)shapeLayer.path, NULL, pt.x, pt.y);
+            [shapeLayer.bezierPath lineToPoint:pt];
             
             pts[i] = pt;
         }
@@ -691,9 +673,10 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 {
     NSPoint pt = CONVERT_POINT_TO_VIEW([theEvent locationInWindow]);
     
-    CAShapeLayer* shapeLayer = (CAShapeLayer*)[[self.layer sublayers] lastObject];
-    pt = [shapeLayer convertPoint:pt fromLayer:rootLayer];
-    CGPathAddLineToPoint((CGMutablePathRef)shapeLayer.path, NULL, pt.x, pt.y);
+    OilPaintLayer* shapeLayer = (OilPaintLayer*)[[self.layer sublayers] lastObject];
+    //pt = [shapeLayer convertPoint:pt fromLayer:rootLayer];
+    //CGPathAddLineToPoint((CGMutablePathRef)shapeLayer.path, NULL, pt.x, pt.y);
+    //[shapeLayer.bezierPath lineToPoint:pt];
     
     m_pPointFilterChain->EndFilter(pt.x, pt.y);
     m_pPointFilterChain->ClearOutputBuffer();
@@ -701,14 +684,32 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
     m_pPointFilterChain->EndFilter(pt.x, pt.y);
     m_pPointFilterChain->ClearOutputBuffer();
     
-//    [nextLayer release];
-//    nextLayer = [[CAShapeLayer layer] retain];
-//    for (CALayer* layer in [self.layer sublayers]) 
-//    {
-//        [layer drawLayer:layer inContext:<#(CGContextRef)#>]
-//    }
+    if (!viewImage) 
+    {
+        viewImage = [[NSImage alloc]  initWithSize:self.frame.size];
+        [[NSColor clearColor] set];        
+        NSRectFill(NSMakeRect(0, 0, viewImage.size.width, viewImage.size.height));
+
+    }
+    
+    viewImage.name = @"Drawing";
+    [viewImage lockFocus];
+    
+       
+    for (CALayer* layer in [self.layer sublayers]) 
+    {
+        //if (shapeLayer != layer)
+        {
+            [self drawLayer:layer inContext:(CGContextRef)[[NSGraphicsContext currentContext] graphicsPort]];
+        }
+    }
+    
+    [viewImage unlockFocus];
+    
+    [viewImage setName:@"Drawn"];
     
     [self setNeedsDisplay:YES];
+    [shapeLayer setNeedsDisplayInRect:shapeLayer.frame];
 }
 #else
 -(void) mouseUp:(NSEvent *)theEvent
@@ -733,6 +734,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
     [rootLayer release];
     CFRelease(penMask);
     [pattern release];
+    [viewImage release];
 #else
     [currentPath release];
     [paths release];
@@ -745,6 +747,8 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
 -(void)clear:(id)sender
 {
     rootLayer.sublayers = nil;
+    [viewImage release];
+    viewImage = nil;
 }
 #else
 -(void)clear:(id)sender

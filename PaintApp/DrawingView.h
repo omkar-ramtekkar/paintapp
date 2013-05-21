@@ -25,6 +25,7 @@
     CALayer* rootLayer;
     PatternGenerator* pattern;
     CAShapeLayer *nextLayer;
+    NSImage* viewImage;
     //CGMutablePathRef cgCurrentPath;
 #else
     Path* currentPath;  
@@ -37,8 +38,5 @@
 
 -(void) drawOilPaintPaths:(NSArray*) oilPaintPaths inContext:(NSGraphicsContext*) pContext;
 -(void) drawPath: (Path*) path inContext:(NSGraphicsContext*) context;
-#if _UseLayers
-- (CGImageRef) createMaskImage;
-#endif
 
 @end

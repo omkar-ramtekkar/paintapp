@@ -15,7 +15,6 @@
     NSUInteger _iMaxLength;
 }
 
-//-(NSUInteger**) getPatternForStrokeWidth:(NSUInteger) width forLength:(NSUInteger) length;
 -(NSUInteger*) getPatternForStrokeWidth:(NSUInteger) width forLocation:(NSPoint) point;
 
 -(void) initialize;

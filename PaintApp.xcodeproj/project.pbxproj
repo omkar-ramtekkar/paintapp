@@ -18,6 +18,7 @@
 		8F63C5B516ABD34F0027D66F /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F63C5B416ABD34F0027D66F /* DrawingView.m */; };
 		8F769E3E171867CC00A02CCD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F769E3D171867CC00A02CCD /* QuartzCore.framework */; };
 		8FAC82C616F5C8B2001A5E74 /* PaintApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC82C516F5C8B2001A5E74 /* PaintApp.icns */; };
+		8FB20326174B39BB00D71954 /* OilPaintLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB20325174B39BB00D71954 /* OilPaintLayer.m */; };
 		8FC4A54016F4A5F200D4C6BA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FC4A53E16F4A5F200D4C6BA /* MainMenu.xib */; };
 		8FC4A55416F51FA400D4C6BA /* MainToolbarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4A55316F51FA400D4C6BA /* MainToolbarManager.m */; };
 		8FC4A55716F51FB300D4C6BA /* PenContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4A55616F51FB300D4C6BA /* PenContext.m */; };
@@ -48,6 +49,8 @@
 		8F63C5B616ABD3590027D66F /* DrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawingView.h; path = ../DrawingView.h; sourceTree = "<group>"; };
 		8F769E3D171867CC00A02CCD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8FAC82C516F5C8B2001A5E74 /* PaintApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PaintApp.icns; sourceTree = SOURCE_ROOT; };
+		8FB20324174B39BB00D71954 /* OilPaintLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OilPaintLayer.h; path = PaintApp/OilPaintLayer.h; sourceTree = SOURCE_ROOT; };
+		8FB20325174B39BB00D71954 /* OilPaintLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OilPaintLayer.m; path = PaintApp/OilPaintLayer.m; sourceTree = SOURCE_ROOT; };
 		8FC4A53F16F4A5F200D4C6BA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		8FC4A55216F51FA400D4C6BA /* MainToolbarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainToolbarManager.h; sourceTree = "<group>"; };
 		8FC4A55316F51FA400D4C6BA /* MainToolbarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainToolbarManager.m; sourceTree = "<group>"; };
@@ -93,6 +96,8 @@
 			children = (
 				8F63C5B616ABD3590027D66F /* DrawingView.h */,
 				8F63C5B416ABD34F0027D66F /* DrawingView.m */,
+				8FB20324174B39BB00D71954 /* OilPaintLayer.h */,
+				8FB20325174B39BB00D71954 /* OilPaintLayer.m */,
 			);
 			name = views;
 			path = images;
@@ -262,6 +267,7 @@
 				8FC4A55416F51FA400D4C6BA /* MainToolbarManager.m in Sources */,
 				8FC4A55716F51FB300D4C6BA /* PenContext.m in Sources */,
 				8F22E8C9172D7D5B00418C06 /* PatternGenerator.mm in Sources */,
+				8FB20326174B39BB00D71954 /* OilPaintLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

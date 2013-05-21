@@ -26,21 +26,14 @@
     _iMaxLength = 60;
     _iMaxSize = 60;
     
-    //_pattern = new NSUInteger*[_iMaxSize];
     for (unsigned int i=0; i < _iMaxSize ; ++i)
     {
-        //_pattern[i] = new NSUInteger[_iMaxLength];
         for (unsigned int j=0; j<_iMaxLength; ++j) 
         {
             _pattern[i][j] = rand() % 2;
         }
     }
 }
-//-(NSUInteger**) getPatternForStrokeWidth:(NSUInteger) width forLength:(NSUInteger) length
-//{
-//    NSUInteger physicalLocation = length % _iMaxLength;
-//    return _pattern;
-//}
 
 -(NSUInteger*) getPatternForStrokeWidth:(NSUInteger) width forLocation:(NSPoint) point
 {
@@ -50,15 +43,6 @@
 
 -(void) dealloc
 {
-
-//    for (unsigned int i=0; i<_iMaxSize; ++i)
-//    {
-//        delete []_pattern[i];
-//    }
-//    
-//    delete []_pattern;
-//    _pattern = NULL;
-    
     [super dealloc];
 }
 

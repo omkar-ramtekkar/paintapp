@@ -16,7 +16,7 @@
 
 #define MIN_REFRESH_RATE 25
 
-#define _UseLayers 1
+#define _UseLayers 0
 
 #if _UseLayers
 #define INFLATION 7
