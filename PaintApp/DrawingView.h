@@ -24,6 +24,7 @@
     CGImageRef penMask;
     CALayer* rootLayer;
     PatternGenerator* pattern;
+    CAShapeLayer *nextLayer;
     //CGMutablePathRef cgCurrentPath;
 #else
     Path* currentPath;  

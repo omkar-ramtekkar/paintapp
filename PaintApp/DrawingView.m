@@ -59,9 +59,9 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
             [NSBezierPath strokeLineFromPoint:lastPt toPoint:element->points[0]];
             
             NSCompositingOperation op = [[NSGraphicsContext currentContext] compositingOperation];
-            [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceAtop];
+            [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeDestinationIn];
 
-            CGContextRef cgContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
+            //CGContextRef cgContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
             
             NSUInteger* pattern = [drawingInfo->pattern getPatternForStrokeWidth:drawingInfo->layer.lineWidth forLocation:lastPt];
             
@@ -91,13 +91,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
                 {
                     if(pattern[i])
                     {
-                        [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceAtop];
-                        [NSBezierPath strokeLineFromPoint:ptStart toPoint: ptEnd];
-                    }
-                    else
-                    {
-                        CGContextSetBlendMode(cgContext, kCGBlendModeSourceAtop);
-                        [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceAtop];
+                        [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeDestinationIn];
                         [NSBezierPath strokeLineFromPoint:ptStart toPoint: ptEnd];
                     }
                     
@@ -706,6 +700,14 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element)
     
     m_pPointFilterChain->EndFilter(pt.x, pt.y);
     m_pPointFilterChain->ClearOutputBuffer();
+    
+//    [nextLayer release];
+//    nextLayer = [[CAShapeLayer layer] retain];
+//    for (CALayer* layer in [self.layer sublayers]) 
+//    {
+//        [layer drawLayer:layer inContext:<#(CGContextRef)#>]
+//    }
+    
     [self setNeedsDisplay:YES];
 }
 #else
