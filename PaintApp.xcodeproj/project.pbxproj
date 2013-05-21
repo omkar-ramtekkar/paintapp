@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		538FC61316C381E1005A375F /* PointFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 538FC61116C381E1005A375F /* PointFilter.cpp */; };
 		8F02BE3A16DBEC0C007B4DE5 /* Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F02BE3916DBEC0C007B4DE5 /* Path.m */; };
+		8F22E8C9172D7D5B00418C06 /* PatternGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8F22E8C8172D7D5B00418C06 /* PatternGenerator.mm */; };
 		8F63C59816ABD3100027D66F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F63C59716ABD3100027D66F /* Cocoa.framework */; };
 		8F63C5A216ABD3100027D66F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8F63C5A016ABD3100027D66F /* InfoPlist.strings */; };
 		8F63C5A416ABD3100027D66F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F63C5A316ABD3100027D66F /* main.m */; };
@@ -17,6 +18,7 @@
 		8F63C5B516ABD34F0027D66F /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F63C5B416ABD34F0027D66F /* DrawingView.m */; };
 		8F769E3E171867CC00A02CCD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F769E3D171867CC00A02CCD /* QuartzCore.framework */; };
 		8FAC82C616F5C8B2001A5E74 /* PaintApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC82C516F5C8B2001A5E74 /* PaintApp.icns */; };
+		8FB20326174B39BB00D71954 /* OilPaintLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB20325174B39BB00D71954 /* OilPaintLayer.m */; };
 		8FC4A54016F4A5F200D4C6BA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FC4A53E16F4A5F200D4C6BA /* MainMenu.xib */; };
 		8FC4A55416F51FA400D4C6BA /* MainToolbarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4A55316F51FA400D4C6BA /* MainToolbarManager.m */; };
 		8FC4A55716F51FB300D4C6BA /* PenContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4A55616F51FB300D4C6BA /* PenContext.m */; };
@@ -30,6 +32,8 @@
 		538FC63216C38432005A375F /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		8F02BE3816DBEC0C007B4DE5 /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Path.h; sourceTree = "<group>"; };
 		8F02BE3916DBEC0C007B4DE5 /* Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Path.m; sourceTree = "<group>"; };
+		8F22E8C7172D7D5B00418C06 /* PatternGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatternGenerator.h; sourceTree = "<group>"; };
+		8F22E8C8172D7D5B00418C06 /* PatternGenerator.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = PatternGenerator.mm; sourceTree = "<group>"; };
 		8F63C59316ABD3100027D66F /* PaintApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaintApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F63C59716ABD3100027D66F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		8F63C59A16ABD3100027D66F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -45,6 +49,8 @@
 		8F63C5B616ABD3590027D66F /* DrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawingView.h; path = ../DrawingView.h; sourceTree = "<group>"; };
 		8F769E3D171867CC00A02CCD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8FAC82C516F5C8B2001A5E74 /* PaintApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PaintApp.icns; sourceTree = SOURCE_ROOT; };
+		8FB20324174B39BB00D71954 /* OilPaintLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OilPaintLayer.h; path = PaintApp/OilPaintLayer.h; sourceTree = SOURCE_ROOT; };
+		8FB20325174B39BB00D71954 /* OilPaintLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OilPaintLayer.m; path = PaintApp/OilPaintLayer.m; sourceTree = SOURCE_ROOT; };
 		8FC4A53F16F4A5F200D4C6BA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		8FC4A55216F51FA400D4C6BA /* MainToolbarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainToolbarManager.h; sourceTree = "<group>"; };
 		8FC4A55316F51FA400D4C6BA /* MainToolbarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainToolbarManager.m; sourceTree = "<group>"; };
@@ -79,6 +85,8 @@
 				8F02BE3916DBEC0C007B4DE5 /* Path.m */,
 				8FC4A55516F51FB300D4C6BA /* PenContext.h */,
 				8FC4A55616F51FB300D4C6BA /* PenContext.m */,
+				8F22E8C7172D7D5B00418C06 /* PatternGenerator.h */,
+				8F22E8C8172D7D5B00418C06 /* PatternGenerator.mm */,
 			);
 			name = PointFilter;
 			sourceTree = "<group>";
@@ -88,9 +96,18 @@
 			children = (
 				8F63C5B616ABD3590027D66F /* DrawingView.h */,
 				8F63C5B416ABD34F0027D66F /* DrawingView.m */,
+				8FB20324174B39BB00D71954 /* OilPaintLayer.h */,
+				8FB20325174B39BB00D71954 /* OilPaintLayer.m */,
 			);
 			name = views;
 			path = images;
+			sourceTree = "<group>";
+		};
+		8F3199AA171AA0A000A5A031 /* Patterns */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Patterns;
 			sourceTree = "<group>";
 		};
 		8F63C58816ABD3100027D66F = {
@@ -133,6 +150,7 @@
 		8F63C59D16ABD3100027D66F /* PaintApp */ = {
 			isa = PBXGroup;
 			children = (
+				8F3199AA171AA0A000A5A031 /* Patterns */,
 				8FE7633016F59CED0078BDA6 /* Images */,
 				8FC4A55016F5174700D4C6BA /* toolbar */,
 				538FC60C16C381CF005A375F /* PointFilter */,
@@ -248,6 +266,8 @@
 				8F02BE3A16DBEC0C007B4DE5 /* Path.m in Sources */,
 				8FC4A55416F51FA400D4C6BA /* MainToolbarManager.m in Sources */,
 				8FC4A55716F51FB300D4C6BA /* PenContext.m in Sources */,
+				8F22E8C9172D7D5B00418C06 /* PatternGenerator.mm in Sources */,
+				8FB20326174B39BB00D71954 /* OilPaintLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

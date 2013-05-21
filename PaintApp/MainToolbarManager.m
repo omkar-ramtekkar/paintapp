@@ -13,6 +13,15 @@ static NSString* ToolbarClearAllInkIdentifier = @"ToolbarClearAllInkIdentifier";
 
 @implementation MainToolbarManager
 
+-(id) init
+{
+    if(self = [super init])
+    {
+        [[NSColorPanel sharedColorPanel] setColor:DEFAULT_PEN_COLOR];
+    }
+    return self;
+}
+
 - (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *) toolbar {
     return [NSArray arrayWithObjects:
             NSToolbarPrintItemIdentifier,

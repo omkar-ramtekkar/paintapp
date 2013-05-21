@@ -19,6 +19,7 @@
 	
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    srand((unsigned)time(NULL));
     // Insert code here to initialize your application
 }
 

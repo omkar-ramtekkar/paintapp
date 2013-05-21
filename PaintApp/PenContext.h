@@ -14,6 +14,5 @@
 
 @property (retain, nonatomic) NSColor* color;
 @property (assign, nonatomic) float penWidth;
-@property (retain, nonatomic) CAShapeLayer* penCreationalLayer;
 
 @end
